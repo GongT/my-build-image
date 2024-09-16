@@ -1,0 +1,44 @@
+name: 'test'
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  cancel:
+    name: 生成
+    runs-on: ubuntu-24.04
+    steps:
+      - name: 获取代码
+        uses: actions/checkout@v3
+        timeout-minutes: 1
+        with:
+          clean: true
+          fetch-depth: 5
+
+      - name: 登录
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -u
+          export REGISTRY_AUTH_FILE="$RUNNER_TEMP/auth.json"
+          echo "REGISTRY_AUTH_FILE=$REGISTRY_AUTH_FILE" >> "$GITHUB_ENV"
+          podman login "--username=$GITHUB_ACTOR" "--password=$GITHUB_TOKEN" ghcr.io
+
+      - name: build
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -u
+          podman build root --tag ghcr.io/gongt/buildbase --file root/Containerfile
+
+      - name: push
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -u
+          podman push ghcr.io/gongt/buildbase
+
+        
+        
