@@ -20,6 +20,8 @@ jobs:
       - name: 登录
         timeout-minutes: 5
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -u
           export REGISTRY_AUTH_FILE="$RUNNER_TEMP/auth.json"
