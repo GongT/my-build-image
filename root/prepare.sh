@@ -37,11 +37,9 @@ cat <<-EOF >/etc/containers/registries.conf.d/ghcr.conf
 EOF
 
 cat <<-EOF >/etc/subuid
-podman:1:999
-podman:1001:64535
+root:10000:65535
 EOF
 
 cat <<-EOF >/etc/subgid
-podman:1:999
-podman:1001:64535
+root:10000:65535
 EOF
