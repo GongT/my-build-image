@@ -1,4 +1,4 @@
-name: 'test'
+name: 生成
 on:
   workflow_dispatch:
   push:

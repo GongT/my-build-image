@@ -2,9 +2,6 @@
 set -Eeuo pipefail
 shopt -s inherit_errexit extglob nullglob globstar lastpipe shift_verbose
 
-useradd podman --uid 50000 --home-dir /home/podman --shell /usr/bin/bash --create-home
-chown podman:podman /var/lib/containers -R
-
 cat <<-EOF >/etc/containers/containers.conf
 	[containers]
 	base_hosts_file = "none"
@@ -22,7 +19,8 @@ EOF
 cat <<-EOF >/etc/containers/storage.conf
 [storage]
 driver = "overlay"
-rootless_storage_path="/var/lib/containers/storage"
+runroot = "/run/containers/storage"
+graphroot = "/var/lib/containers/storage"
 EOF
 
 cat <<-EOF >/etc/containers/registries.conf

@@ -8,6 +8,5 @@ RUN echo \
 RUN --mount=type=bind,source=./prepare.sh,target=/tmp/prepare.sh echo \
  && bash /tmp/prepare.sh
 
-USER podman
 ENTRYPOINT ["/usr/bin/bash", "-c"]
 CMD ["exec bash -i --login"]
