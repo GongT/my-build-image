@@ -37,9 +37,9 @@ cat <<-EOF >/etc/containers/registries.conf.d/ghcr.conf
 EOF
 
 cat <<-EOF >/etc/subuid
-root:10000:65535
+root:2000:1000000
 EOF
 
 cat <<-EOF >/etc/subgid
-root:10000:65535
+root:2000:1000000
 EOF
