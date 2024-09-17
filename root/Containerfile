@@ -4,7 +4,7 @@ RUN echo \
 	&& DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/') \
 	&& curl -OL "https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.rpm" \
 	&& dnf install -y --nodocs --setopt=install_weak_deps=False "dive_${DIVE_VERSION}_linux_amd64.rpm" \
-		jq gnupg podman buildah skopeo wget git tar
+		jq gnupg podman buildah skopeo wget git tar systemd
 
 RUN --mount=type=bind,source=./prepare.sh,target=/tmp/prepare.sh echo \
 	&& bash /tmp/prepare.sh
